@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Link, Route } from 
 'react-router-dom';
-import { getState, publish, subscribe } from './store';
+import { getState, publish, subscribe, init } from './store';
+
+init({ counter: 0 });
 
 const Foo = ()=> {
   return <div>Foo</div>;
 };
 
-const Bar = ()=> {
-  return <div>Bar</div>;
-};
 import Bazz from './Bazz'
 
 export default class App extends Component{
@@ -17,12 +16,12 @@ export default class App extends Component{
     super();
     const state = getState();
     this.state = {
-      counter: state.counter || 0
+      counter: state.counter
     };
   }
   componentDidMount(){
     subscribe((state)=> {
-      this.setState({ counter: state.counter || 0});
+      this.setState({ counter: state.counter});
       
     });
   }
@@ -35,12 +34,16 @@ export default class App extends Component{
     return (
     <Router>
       <div>
-        <Link to='/foo'>Foo</Link>
-        <Link to='/bar'>Bar</Link>
-        <Link to='/bazz'>Bazz</Link>
+        <ul>
+          <li>
+            <Link to='/foo'>Foo</Link>
+          </li>
+          <li>
+            <Link to='/bazz'>Bazz</Link>
+          </li>
+        </ul>
         <h1><button onClick={ reset }>{ counter }</button></h1>
         <Route component={ Foo } path='/foo' />
-        <Route component={ Bar } path='/bar' />
         <Route component={ Bazz } path='/bazz' />
       </div>
     </Router>

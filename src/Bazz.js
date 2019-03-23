@@ -6,13 +6,12 @@ export default class Foo extends Component{
     super();
     const _state = getState();
     this.state = {
-      counter: _state.counter || 0
+      counter: _state.counter
     };
   }
   componentDidMount(){
     this.unsubscribe = subscribe((state)=> {
-      console.log(state);
-      this.setState({ counter: state.counter || 0});
+      this.setState({ counter: state.counter});
     });
   }
   componentWillUnmount(){

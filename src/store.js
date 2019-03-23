@@ -15,4 +15,8 @@ const getState = ()=> {
   return { ..._state };
 }
 
-export { publish, subscribe, getState };
+const init = (data)=> {
+  _state = { ..._state, ...data };
+};
+
+export { publish, subscribe, getState, init };
